@@ -1,0 +1,32 @@
+version: '3.2'
+services:
+  app:
+    environment:
+      - RAILS_ENV=production
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+    entrypoint:
+      - ./start-prod.sh
+    volumes:
+      - app_public:/var/www/app/public
+  nginx:
+    image: nginx
+    networks:
+      - main
+    ports:
+      - 8080:80
+    environment:
+      - VIRTUAL_HOST=word.kenforthewin.com
+      - LETSENCRYPT_HOST=word.kenforthewin.com
+    volumes:
+      - type: volume
+        source: app_public
+        target: /var/www/app/public
+        volume:
+          nocopy: true
+      - type: bind
+        source: $PWD/nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+volumes:
+  app_public:

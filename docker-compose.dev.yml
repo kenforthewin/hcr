@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  app:
+    volumes:
+      - $PWD:/var/www/app
+    ports:
+      - 3000:3000
+    environment:
+      - RAILS_ENV=development

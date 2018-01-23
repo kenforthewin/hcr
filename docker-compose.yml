@@ -1,21 +1,14 @@
-version: '3'
+version: '3.2'
 services:
   app:
     build: .
-    volumes:
-      - $PWD:/var/www/app
     depends_on:
       - elasticsearch
       - redis
       - sidekiq
-    ports:
-      - 3000:3000
     networks:
       - esnet
       - main
-    environment:
-      - VIRTUAL_HOST=word.kenforthewin.com
-      - LETSENCRYPT_HOST=word.kenforthewin.com
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
     container_name: elasticsearch
