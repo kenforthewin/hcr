@@ -1,0 +1,33 @@
+version: '3'
+services:
+  app:
+    build: .
+    volumes:
+      - $PWD:/var/www/app
+    depends_on:
+      - elasticsearch
+      - redis
+      - sidekiq
+    ports:
+      - 3000:3000
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  redis: 
+    image: 'redis'
+  sidekiq:
+    build: .
+    depends_on:
+      - elasticsearch
+      - redis
+    entrypoint:
+      - sidekiq 
+volumes:
+  esdata:
+  node_modules:

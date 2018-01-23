@@ -1,0 +1,14 @@
+// Place all the styles related to the Scans controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: black;
+}
+
+.axis--x path {
+  display: none;
+}

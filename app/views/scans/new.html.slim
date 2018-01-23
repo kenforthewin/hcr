@@ -1,0 +1,14 @@
+br
+h1 Scan a web page. 
+h1 See its most frequently used words. 
+h1 Share the results forever.
+br
+.row
+  .col-6
+    fieldset.scan_fieldset
+      form.form-inline action="/scans" method="POST" name="create_scan" id="create_scan"
+        input.form-control type="text" name="url" placeholder="URL" style="width: 60%" id="scan_url"
+        button.btn.btn-primary style="margin-left: 10px" type="submit" Perform Scan
+        input type="hidden" name="authenticity_token" id="authenticity_token" value=form_authenticity_token
+  .col-6
+    h2.loading-message style="visibility:hidden" Loading...

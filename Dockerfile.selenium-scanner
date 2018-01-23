@@ -1,0 +1,9 @@
+FROM selenium/standalone-chrome
+USER root
+RUN apt-get update && apt-get install -y -qq ruby ruby-dev bundler cmake libgmp3-dev gengetopt libpcap-dev flex byacc libjson-c-dev pkg-config libunistring-dev wget unzip
+RUN gem install selenium-webdriver elasticsearch
+ARG userdomain=https://blog.kenforthewin.com
+ENV USER_DOMAIN $userdomain
+COPY selenium-scanner.rb /var/www/selenium-scanner.rb
+WORKDIR /data
+CMD [ "ruby", "/var/www/selenium-scanner.rb" ]
