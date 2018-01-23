@@ -13,10 +13,11 @@ services:
     networks:
       - main
     ports:
-      - 8080:80
+      - 80
     environment:
       - VIRTUAL_HOST=word.kenforthewin.com
       - LETSENCRYPT_HOST=word.kenforthewin.com
+      - LETSENCRYPT_EMAIL=bergquist.kenneth@gmail.com
     volumes:
       - type: volume
         source: app_public
