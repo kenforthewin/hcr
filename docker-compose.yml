@@ -10,6 +10,12 @@ services:
       - sidekiq
     ports:
       - 3000:3000
+    networks:
+      - esnet
+      - main
+    environment:
+      - VIRTUAL_HOST=word.kenforthewin.com
+      - LETSENCRYPT_HOST=word.kenforthewin.com
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
     container_name: elasticsearch
@@ -27,6 +33,7 @@ services:
       - 9200:9200
     networks:
       - esnet
+      - main
   elasticsearch2:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
     container_name: elasticsearch2
@@ -45,15 +52,22 @@ services:
       - esnet
   redis: 
     image: 'redis'
+    networks:
+      - main
   sidekiq:
+    restart: always
     build: .
     depends_on:
       - elasticsearch
       - redis
     entrypoint:
-      - sidekiq 
+      - sidekiq
+    networks:
+      - esnet
+      - main
 volumes:
   esdata:
   esdata2:
 networks:
   esnet:
+  main:
